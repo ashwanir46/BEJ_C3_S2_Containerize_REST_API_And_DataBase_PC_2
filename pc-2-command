@@ -1,0 +1,73 @@
+#pull the docker image from docker hub
+docker pull mongo
+
+#run the mongo container
+docker run -d --name mongo-container mongo
+
+#execute the mongo terminal
+docker exec -it mongo-container bash
+
+#after execute the mongo terminal
+root@c24269dcfc25:/# mongosh
+Current Mongosh Log ID: 639048b8b99de4c32dcd3fff
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.1
+Using MongoDB:          6.0.3
+Using Mongosh:          1.6.1
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2022-12-07T08:02:01.780+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2022-12-07T08:02:02.856+00:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2022-12-07T08:02:02.857+00:00: /sys/kernel/mm/transparent_hugepage/enabled is 'always'. We suggest setting it to 'never'
+   2022-12-07T08:02:02.857+00:00: vm.max_map_count is too low
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+#create a data base "Ashwani"
+test>use Ashwani
+     switched to db Ashwani
+
+#create a collection in the above database
+Ashwani> db.createCollection("customer")
+{ ok: 1 }
+
+#show the database whether it is created or not
+Ashwani> show dbs
+Ashwani      8.00 KiB
+admin       40.00 KiB
+config      60.00 KiB
+local       72.00 KiB
+mydatabase   8.00 KiB
+
+#insert customer name ,age ,email , phoneNo , and address in customer collection
+Ashwani>  db.customers.insertOne({customerName:"Ashwani Rajput", age:23, address:"Bijnor India", phoneNumber:3678996655, email:"ar@gmail.com"})
+{
+  acknowledged: true,
+  insertedId: ObjectId("63904b2547d3468015a7a885")
+}
+
+#show the data which is insert into above database
+Ashwani> db.customers.find().pretty()
+[
+  {
+    _id: ObjectId("63904b2547d3468015a7a885"),
+    customerName: 'Ashwani Rajput',
+    age: 23,
+    address: 'Bijnor India',
+    phoneNumber: 3678996655,
+    email: 'ar@gmail.com'
+  }
+]
